@@ -13,5 +13,4 @@ public/attachments
 *.sublime-*
 vendor/bundle
 .rspec
-.rvmrc
 .DS_Store
