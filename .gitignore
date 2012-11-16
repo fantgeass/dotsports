@@ -1,0 +1,17 @@
+.bundle
+db/*.sqlite3
+config/database.yml
+log/*.log
+tmp/
+.idea
+*~
+public/assets
+public/downloadable
+public/system
+public/spree
+public/attachments
+*.sublime-*
+vendor/bundle
+.rspec
+.rvmrc
+.DS_Store
