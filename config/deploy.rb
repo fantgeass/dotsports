@@ -1,7 +1,10 @@
 # require './config/boot'
 require 'bundler/capistrano'
 require 'airbrake/capistrano'
+require 'rvm/capistrano'
 
+set :rvm_ruby_string, 'ree-1.8.7'
+set :rvm_type, :user
 set :application, 'dotsports.ru'
 set :scm, :git
 set :repository, 'git://github.com/okiok/dotsports.git'

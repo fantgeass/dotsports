@@ -18,6 +18,7 @@ gem 'whenever'
 gem 'sitemap_generator'
 gem 'cocaine', '0.3.1'
 gem 'kgio', '2.7.0'
+gem 'rvm-capistrano'
 
 # Gems used only for assets and not required
 # in production environments by default.
