@@ -48,4 +48,3 @@ gem 'spree_yandex_market', :git => 'git://github.com/secoint/spree-yandex-market
 gem 'spree_online_support', :git => 'git://github.com/secoint/spree_online_support.git'
 gem 'spree_static_content', :git => 'git://github.com/spree/spree_static_content', :branch => '0-70-stable'
 gem 'synergy_default_theme', :git => 'git://github.com/romul/synergy_default_theme.git', :branch => '0-70-x'
-

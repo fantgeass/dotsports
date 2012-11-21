@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/romul/synergy_default_theme.git
-  revision: 4d42c4b14004e51aa8300c67d72531abf5aaad66
+  revision: 1952f220bfbaed446d840a8721fe9ce636ad859e
   branch: 0-70-x
   specs:
     synergy_default_theme (1.0.2)
