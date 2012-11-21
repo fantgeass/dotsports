@@ -1,7 +1,8 @@
-# require './config/boot'
 require 'bundler/capistrano'
 require 'airbrake/capistrano'
 require 'rvm/capistrano'
+
+load 'deploy/assets'
 
 set :rvm_ruby_string, 'ree-1.8.7'
 set :rvm_type, :user
@@ -25,7 +26,6 @@ namespace(:customs) do
   end
 
   task :symlink, :roles => :app do
-    run "ln -s #{shared_path}/assets #{release_path}/public/assets"
     run "ln -s #{shared_path}/spree #{release_path}/public/spree"
   end
 end
@@ -47,12 +47,6 @@ namespace :deploy do
     start
   end
 
-  namespace :assets do
-    task :precompile, :roles => :web, :except => { :no_release => true } do
-      run %Q{cd #{latest_release} && #{rake} RAILS_ENV=production assets:clean && #{rake} RAILS_ENV=production assets:precompile}
-    end
-  end
-
   desc "Update the crontab file"
   task :update_crontab, :roles => :app do
     run "cd #{current_path} && bundle exec whenever --update-crontab dotsports"
@@ -60,11 +54,8 @@ namespace :deploy do
 
 end
 
-
-after 'deploy:update_code', 'deploy:assets:precompile'
 after 'deploy:finalize_update', 'customs:config'
 after 'deploy:create_symlink', 'deploy:update_crontab'
 after 'deploy:create_symlink', 'customs:symlink'
 after 'deploy', 'deploy:cleanup'
 after 'deploy', 'deploy:migrate'
-
