@@ -12,5 +12,3 @@
 //= require store/spree_promo
 
 //= require_tree .
-//= require store/jquery.jgrowl.min
-//= require store/jquery.tools.min
