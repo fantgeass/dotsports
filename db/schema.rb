@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116123953) do
+ActiveRecord::Schema.define(:version => 20121126203409) do
 
   create_table "activators", :force => true do |t|
     t.string   "description"
@@ -507,9 +507,10 @@ ActiveRecord::Schema.define(:version => 20121116123953) do
   end
 
   create_table "taxonomies", :force => true do |t|
-    t.string   "name",       :null => false
+    t.string   "name",                                :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "show_on_homepage", :default => false, :null => false
   end
 
   create_table "taxons", :force => true do |t|
