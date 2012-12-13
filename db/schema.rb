@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121126203409) do
+ActiveRecord::Schema.define(:version => 20121213091429) do
 
   create_table "activators", :force => true do |t|
     t.string   "description"
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(:version => 20121126203409) do
   end
 
   add_index "adjustments", ["order_id"], :name => "index_adjustments_on_order_id"
+
+  create_table "assemblies_parts", :id => false, :force => true do |t|
+    t.integer "assembly_id",                :null => false
+    t.integer "part_id",                    :null => false
+    t.integer "count",       :default => 1, :null => false
+  end
 
   create_table "assets", :force => true do |t|
     t.integer  "viewable_id"
@@ -336,7 +342,7 @@ ActiveRecord::Schema.define(:version => 20121126203409) do
   add_index "product_scopes", ["product_group_id"], :name => "index_product_scopes_on_product_group_id"
 
   create_table "products", :force => true do |t|
-    t.string   "name",                                        :default => "",   :null => false
+    t.string   "name",                                        :default => "",    :null => false
     t.text     "description",             :limit => 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -347,8 +353,10 @@ ActiveRecord::Schema.define(:version => 20121126203409) do
     t.datetime "deleted_at"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.integer  "count_on_hand",                               :default => 0,    :null => false
-    t.boolean  "export_to_yandex_market",                     :default => true, :null => false
+    t.integer  "count_on_hand",                               :default => 0,     :null => false
+    t.boolean  "export_to_yandex_market",                     :default => true,  :null => false
+    t.boolean  "can_be_part",                                 :default => false, :null => false
+    t.boolean  "individual_sale",                             :default => true,  :null => false
   end
 
   add_index "products", ["available_on"], :name => "index_products_on_available_on"
@@ -420,6 +428,25 @@ ActiveRecord::Schema.define(:version => 20121126203409) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "relation_types", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "applies_to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "relations", :force => true do |t|
+    t.integer  "relation_type_id"
+    t.integer  "relatable_id"
+    t.string   "relatable_type"
+    t.integer  "related_to_id"
+    t.string   "related_to_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "discount_amount",  :precision => 8, :scale => 2, :default => 0.0
   end
 
   create_table "return_authorizations", :force => true do |t|

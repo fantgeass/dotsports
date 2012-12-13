@@ -1,0 +1,6 @@
+<div class="product-relations">
+  <h3>Связанные товары:</h3>
+  <% @product.relations.each do |relation| %>
+    <p><%= link_to relation.related_to.name, product_path(relation.related_to)  %></p>
+  <% end %>
+</div>
