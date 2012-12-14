@@ -1,0 +1,8 @@
+<% if @product.embedded_video && @product.embedded_video.present? %>
+  <div data-hook="embedded_video">
+    <dl id="embedded_video">
+  <dt>Видео</dt>
+    <dd><span class="embedded_video"><%= raw @product.embedded_video %></span></dd>
+    </dl>
+  </div>
+<% end %>

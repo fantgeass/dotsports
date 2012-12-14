@@ -23,6 +23,12 @@
     <%= f.text_field :available_on, :class => 'datepicker' %>
   <% end %>
 
+  <%= f.field_container :embedded_video do %>
+    <%= f.label :embedded_video, t(:embedded_video) %><br />
+    <%= f.error_message_on :embedded_video %>
+    <%= f.text_area :embedded_video %>
+  <% end %>
+
   <% unless @product.has_variants? %>
     <%= f.field_container :sku do %>
       <%= f.label :sku, t(:sku) %><br />

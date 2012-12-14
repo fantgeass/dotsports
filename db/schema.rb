@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214073607) do
+ActiveRecord::Schema.define(:version => 20121214100218) do
 
   create_table "activators", :force => true do |t|
     t.string   "description"
@@ -299,6 +299,7 @@ ActiveRecord::Schema.define(:version => 20121214073607) do
     t.float    "old_price"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "embedded_video"
   end
 
   add_index "product_extensions", ["product_id"], :name => "index_product_extensions_on_product_id"
