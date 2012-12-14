@@ -11,6 +11,12 @@
     <%= f.error_message_on :cost_price %>
   <% end %>
 
+  <%= f.field_container :old_price do %>
+    <%= f.label :old_price, t(:old_price) %><br />
+    <%= f.text_field :old_price, :value => (number_to_currency(@product.old_price, :unit => '') if @product.old_price) %>
+    <%= f.error_message_on :old_price %>
+  <% end %>
+
   <%= f.field_container :available_on do %>
     <%= f.label :available_on, t(:available_on) %><br />
     <%= f.error_message_on :available_on %>
