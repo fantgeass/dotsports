@@ -1,0 +1,8 @@
+<% if @product.old_price && @product.old_price.nonzero? %>
+  <div data-hook="product_price">
+    <dl id="product-price">
+  <dt>Старая цена</dt>
+    <dd><span class="price"><s><%= @product.old_price %> руб.</s></span></dd>
+    </dl>
+  </div>
+<% end %>
