@@ -73,6 +73,15 @@ GIT
       spree_core (>= 0.70.0)
 
 GIT
+  remote: git://github.com/secoint/spree_related_products.git
+  revision: 600091f30827b330978fe7b7e4072801bdd5ac83
+  branch: 0-70-stable
+  specs:
+    spree_related_products (4.0)
+      spree_core
+      spree_promo
+
+GIT
   remote: git://github.com/secoint/synergy.git
   revision: 171e629d86d0ab25872f61688538a632a3fc2be3
   branch: 0-70-stable
@@ -113,15 +122,6 @@ GIT
     spree_editor (0.70.0)
       spree_core (>= 0.70.0)
       tinymce-rails (>= 3.4.7)
-
-GIT
-  remote: git://github.com/spree/spree_related_products.git
-  revision: b0b9dae5b160350b7ad823c268e367d09bd0958a
-  branch: 0-70-stable
-  specs:
-    spree_related_products (4.0)
-      spree_core
-      spree_promo
 
 GIT
   remote: git://github.com/spree/spree_static_content

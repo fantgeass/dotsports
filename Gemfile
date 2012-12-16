@@ -47,5 +47,5 @@ gem 'synergy_inventory_management', :git => 'git://github.com/secoint/synergy_in
 gem 'spree_yandex_market', :git => 'git://github.com/secoint/spree-yandex-market.git'
 gem 'spree_online_support', :git => 'git://github.com/secoint/spree_online_support.git'
 gem 'spree_static_content', :git => 'git://github.com/spree/spree_static_content', :branch => '0-70-stable'
-gem 'spree_related_products', :git => 'git://github.com/spree/spree_related_products.git', :branch => '0-70-stable'
+gem 'spree_related_products', :git => 'git://github.com/secoint/spree_related_products.git', :branch => '0-70-stable'
 gem 'spree_blue_theme', :git => 'git://github.com/spree/spree_blue_theme.git', :branch => '0-70-stable'

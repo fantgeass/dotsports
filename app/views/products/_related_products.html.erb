@@ -1,6 +1,11 @@
 <div class="product-relations">
-  <h3>Связанные товары:</h3>
-  <% @product.relations.each do |relation| %>
-    <p><%= link_to relation.related_to.name, product_path(relation.related_to)  %></p>
+  <h3>Связанные товары (пример двухсторонней связи):</h3>
+  <% @product.connected_products.each do |product| %>
+    <p><%= link_to product.name, product_path(product) %></p>
+  <% end %>
+  
+  <h3>Связанные товары (пример односторонней связи):</h3>
+  <% @product.one_ways.each do |product| %>
+    <p><%= link_to product.name, product_path(product) %></p>
   <% end %>
 </div>

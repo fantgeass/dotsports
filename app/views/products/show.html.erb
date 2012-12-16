@@ -24,4 +24,4 @@
   </div>
 </div>
 
-<%= render 'related_products' if @product.relations.any? %>
+<%= render 'related_products' if @product.relations.any? || @product.related_tos.any? %>

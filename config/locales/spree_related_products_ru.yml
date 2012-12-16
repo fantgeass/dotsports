@@ -10,3 +10,6 @@ ru:
   name_or_sku: "Название или артикул"
   manage_relation_types: "Управление типами связи"
   no_relation_types: "Сначала необходимо задать Типы связей в конфигурации магазина"
+  both_directions: "Двухсторонняя связь"
+  product_related_to: "Этот товар привязан к"
+  product_relatable_to: "К этому товару привязаны"
