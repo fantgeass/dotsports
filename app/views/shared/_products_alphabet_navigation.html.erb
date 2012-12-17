@@ -1,0 +1,13 @@
+<div class='alphabet'>
+  <% ('A'..'Z').each do |l| %>
+    <%= link_to_unless_current l, products_by_alphabet_path(:name_begins_with => l) %>
+  <% end %>
+</div>
+
+<div class='alphabet'>
+  <% ('А'..'Я').each do |l| %>
+    <% unless ['Й', 'Ъ', 'Ы', 'Ь'].include? l%>
+      <%= link_to_unless_current l, products_by_alphabet_path(:name_begins_with => l) %>
+    <% end %>
+  <% end %>
+</div>
