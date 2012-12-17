@@ -1,0 +1,12 @@
+<% content_for :sidebar do %>
+  <div data-hook="homepage_sidebar_navigation">
+    <%= render 'shared/taxonomies' %>
+  </div>
+<% end %>
+
+<%= render 'shared/products_alphabet_navigation' %>
+
+<div data-hook="homepage_products">
+  <%= render 'shared/products', :products => @products %>
+</div>
+
