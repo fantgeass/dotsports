@@ -3,4 +3,13 @@ Product.class_eval do
   accepts_nested_attributes_for :product_extension, :allow_destroy => true
   delegate_belongs_to :product_extension, :old_price, :embedded_video
   attr_accessible :old_price, :embedded_video
+
+  def meta_description
+    taxon = taxons.order(:permalink).where('permalink like "cat/%"').first || taxons.first
+    attributes['meta_description'].presence || I18n.t(:product_default_meta_description, :product => name, :taxon => (taxon.name unless taxon.nil?))
+  end
+
+  def [](attr_name)
+    attr_name == :meta_description ? meta_description : super
+  end
 end
