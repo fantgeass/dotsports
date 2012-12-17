@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121215150441) do
+ActiveRecord::Schema.define(:version => 20121217092736) do
 
   create_table "activators", :force => true do |t|
     t.string   "description"
@@ -62,12 +62,6 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
 
   add_index "adjustments", ["order_id"], :name => "index_adjustments_on_order_id"
 
-  create_table "assemblies_parts", :id => false, :force => true do |t|
-    t.integer "assembly_id",                :null => false
-    t.integer "part_id",                    :null => false
-    t.integer "count",       :default => 1, :null => false
-  end
-
   create_table "assets", :force => true do |t|
     t.integer  "viewable_id"
     t.string   "viewable_type",           :limit => 50
@@ -79,7 +73,7 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
     t.datetime "attachment_updated_at"
     t.integer  "attachment_width"
     t.integer  "attachment_height"
-    t.text     "alt",                     :limit => 16777215
+    t.text     "alt"
   end
 
   add_index "assets", ["viewable_id"], :name => "index_assets_on_viewable_id"
@@ -127,14 +121,26 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
     t.string   "gateway_payment_profile_id"
   end
 
+  create_table "feedback_reviews", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "review_id",                 :null => false
+    t.integer  "rating",     :default => 0
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feedback_reviews", ["review_id"], :name => "index_feedback_reviews_on_review_id"
+  add_index "feedback_reviews", ["user_id"], :name => "index_feedback_reviews_on_user_id"
+
   create_table "gateways", :force => true do |t|
     t.string   "type"
     t.string   "name"
-    t.text     "description", :limit => 16777215
-    t.boolean  "active",                          :default => true
-    t.string   "environment",                     :default => "development"
-    t.string   "server",                          :default => "test"
-    t.boolean  "test_mode",                       :default => true
+    t.text     "description"
+    t.boolean  "active",      :default => true
+    t.string   "environment", :default => "development"
+    t.string   "server",      :default => "test"
+    t.boolean  "test_mode",   :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -169,7 +175,7 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
   create_table "log_entries", :force => true do |t|
     t.integer  "source_id"
     t.string   "source_type"
-    t.text     "details",     :limit => 16777215
+    t.text     "details"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -214,41 +220,41 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
     t.string   "number",               :limit => 15
-    t.decimal  "item_total",                               :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "total",                                    :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "item_total",                         :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "total",                              :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
-    t.decimal  "adjustment_total",                         :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "credit_total",                             :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "adjustment_total",                   :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "credit_total",                       :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.datetime "completed_at"
     t.integer  "bill_address_id"
     t.integer  "ship_address_id"
-    t.decimal  "payment_total",                            :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "payment_total",                      :precision => 8, :scale => 2, :default => 0.0
     t.integer  "shipping_method_id"
     t.string   "shipment_state"
     t.string   "payment_state"
     t.string   "email"
-    t.text     "special_instructions", :limit => 16777215
+    t.text     "special_instructions"
   end
 
   add_index "orders", ["number"], :name => "index_orders_on_number"
 
   create_table "pages", :force => true do |t|
     t.string   "title"
-    t.text     "body",             :limit => 16777215
+    t.text     "body"
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "show_in_header",                       :default => false, :null => false
-    t.boolean  "show_in_footer",                       :default => false, :null => false
+    t.boolean  "show_in_header",   :default => false, :null => false
+    t.boolean  "show_in_footer",   :default => false, :null => false
     t.string   "foreign_link"
-    t.integer  "position",                             :default => 1,     :null => false
-    t.boolean  "visible",                              :default => true
+    t.integer  "position",         :default => 1,     :null => false
+    t.boolean  "visible",          :default => true
     t.string   "meta_keywords"
     t.string   "meta_description"
     t.string   "layout"
-    t.boolean  "show_in_sidebar",                      :default => false, :null => false
+    t.boolean  "show_in_sidebar",  :default => false, :null => false
     t.string   "meta_title"
   end
 
@@ -257,9 +263,9 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
   create_table "payment_methods", :force => true do |t|
     t.string   "type"
     t.string   "name"
-    t.text     "description", :limit => 16777215
-    t.boolean  "active",                          :default => true
-    t.string   "environment",                     :default => "development"
+    t.text     "description"
+    t.boolean  "active",      :default => true
+    t.string   "environment", :default => "development"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -288,12 +294,12 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
   add_index "pending_promotions", ["user_id"], :name => "index_pending_promotions_on_user_id"
 
   create_table "preferences", :force => true do |t|
-    t.string   "name",       :limit => 100,      :null => false
-    t.integer  "owner_id",                       :null => false
-    t.string   "owner_type", :limit => 50,       :null => false
+    t.string   "name",       :limit => 100, :null => false
+    t.integer  "owner_id",                  :null => false
+    t.string   "owner_type", :limit => 50,  :null => false
     t.integer  "group_id"
     t.string   "group_type", :limit => 50
-    t.text     "value",      :limit => 16777215
+    t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -345,15 +351,15 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
   create_table "product_scopes", :force => true do |t|
     t.integer "product_group_id"
     t.string  "name"
-    t.text    "arguments",        :limit => 16777215
+    t.text    "arguments"
   end
 
   add_index "product_scopes", ["name"], :name => "index_product_scopes_on_name"
   add_index "product_scopes", ["product_group_id"], :name => "index_product_scopes_on_product_group_id"
 
   create_table "products", :force => true do |t|
-    t.string   "name",                                        :default => "",    :null => false
-    t.text     "description",             :limit => 16777215
+    t.string   "name",                                                  :default => "",   :null => false
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "permalink"
@@ -363,10 +369,10 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
     t.datetime "deleted_at"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.integer  "count_on_hand",                               :default => 0,     :null => false
-    t.boolean  "export_to_yandex_market",                     :default => true,  :null => false
-    t.boolean  "can_be_part",                                 :default => false, :null => false
-    t.boolean  "individual_sale",                             :default => true,  :null => false
+    t.integer  "count_on_hand",                                         :default => 0,    :null => false
+    t.boolean  "export_to_yandex_market",                               :default => true, :null => false
+    t.decimal  "avg_rating",              :precision => 7, :scale => 5, :default => 0.0,  :null => false
+    t.integer  "reviews_count",                                         :default => 0,    :null => false
   end
 
   add_index "products", ["available_on"], :name => "index_products_on_available_on"
@@ -462,12 +468,26 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
 
   create_table "return_authorizations", :force => true do |t|
     t.string   "number"
-    t.decimal  "amount",                         :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "amount",     :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.integer  "order_id"
-    t.text     "reason",     :limit => 16777215
+    t.text     "reason"
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "reviews", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "name"
+    t.string   "location"
+    t.integer  "rating"
+    t.text     "title"
+    t.text     "review"
+    t.boolean  "approved",   :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "ip_address"
   end
 
   create_table "roles", :force => true do |t|
@@ -552,10 +572,10 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
   end
 
   create_table "taxons", :force => true do |t|
-    t.integer  "taxonomy_id",                                                   :null => false
+    t.integer  "taxonomy_id",                               :null => false
     t.integer  "parent_id"
-    t.integer  "position",                                    :default => 0
-    t.string   "name",                                                          :null => false
+    t.integer  "position",                :default => 0
+    t.string   "name",                                      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "permalink"
@@ -565,8 +585,8 @@ ActiveRecord::Schema.define(:version => 20121215150441) do
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
-    t.text     "description",             :limit => 16777215
-    t.boolean  "export_to_yandex_market",                     :default => true, :null => false
+    t.text     "description"
+    t.boolean  "export_to_yandex_market", :default => true, :null => false
   end
 
   add_index "taxons", ["parent_id"], :name => "index_taxons_on_parent_id"

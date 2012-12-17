@@ -133,6 +133,13 @@ GIT
       spree_auth (>= 0.70.1)
       spree_core (>= 0.70.1)
 
+GIT
+  remote: git://github.com/supergivi/spree-reviews.git
+  revision: 1b29738aad92843bb243e5c4f33766e3ad8100d6
+  specs:
+    spree_reviews (0.50.1)
+      spree_core (>= 0.50.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -379,6 +386,7 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
+  cancan (= 1.6.5)
   capistrano
   cocaine (= 0.3.1)
   coffee-rails (~> 3.1.1)
@@ -405,6 +413,7 @@ DEPENDENCIES
   spree_i18n!
   spree_online_support!
   spree_related_products!
+  spree_reviews!
   spree_static_content!
   spree_yandex_market!
   synergy!

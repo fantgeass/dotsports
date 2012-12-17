@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.6'
 
 gem 'mysql2'
+gem 'cancan', '1.6.5'
 gem 'unicorn'
 gem 'capistrano'
 gem 'json'
@@ -19,6 +20,7 @@ gem 'sitemap_generator'
 gem 'cocaine', '0.3.1'
 gem 'kgio', '2.7.0'
 gem 'rvm-capistrano'
+gem 'spree_reviews', :git => 'git://github.com/supergivi/spree-reviews.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
