@@ -21,7 +21,6 @@ gem 'cocaine', '0.3.1'
 gem 'kgio', '2.7.0'
 gem 'rvm-capistrano'
 gem 'spree_reviews', :git => 'git://github.com/supergivi/spree-reviews.git'
-gem 'ruby-debug'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -34,6 +33,7 @@ group :assets do
 end
 
 group :development do
+  gem 'ruby-debug'
   gem 'mongrel'
   gem 'rspec-rails'
   gem 'letter_opener'
