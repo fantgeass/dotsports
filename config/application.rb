@@ -19,6 +19,7 @@ module Dotsports
   class Application < Rails::Application
     config.middleware.use "SeoAssist"
     config.middleware.use "RedirectLegacyProductUrl"
+    config.autoload_paths += %W(#{config.root}/lib)
 
     config.to_prepare do
       #loads application's model / class decorators
@@ -30,7 +31,13 @@ module Dotsports
       Dir.glob(File.join(File.dirname(__FILE__), "../app/overrides/*.rb")) do |c|
         Rails.application.config.cache_classes ? require(c) : load(c)
       end
+
+      if Spree::Config.instance
+        Spree::Config.searcher_class = Spree::Search::Dotsports
+      end
     end
+
+      
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

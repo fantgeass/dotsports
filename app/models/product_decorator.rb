@@ -15,4 +15,8 @@ Product.class_eval do
   def [](attr_name)
     attr_name == :meta_description ? meta_description : super
   end
+
+  def self.with_rating(rating)
+    self.where(:avg_rating => rating)
+  end
 end
