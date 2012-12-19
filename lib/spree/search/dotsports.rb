@@ -4,26 +4,30 @@ module Spree
 
       def retrieve_products
         @products_scope = get_base_scope
-        curr_page = page || 1
+        current_page = page || 1
 
-        @products = @products_scope.includes([:master]).page(curr_page).per(per_page)
+        @products = @products_scope.includes([:master]).page(current_page).per(per_page)
 
         @products = scope_products_by_price(@products)
 
-        @products = @products.with_rating(1) if @properties[:rating].present?
+        @products = @products.with_rating(@properties[:rating]) if @properties[:rating].present?
+
+        @products = @products.where('products.name like ?', "#{@properties[:name_begins_with]}%") if @properties[:name_begins_with]
 
         if @properties[:taxons]
-          p = []
+          pr = []
           @properties[:taxons].each do |taxon|
-            p += @products.in_taxon(Taxon.find(taxon))
+            pr += @products.in_taxon(Taxon.find(taxon))
           end
-          @products = p.uniq
+          @products = pr.uniq
         end
 
         @products
       end
 
+
       protected
+
         def get_base_scope
           Product.active
         end
@@ -36,6 +40,7 @@ module Spree
           @properties[:price_min], @properties[:price_max] = parse_price(params[:price]).first
           @properties[:price_max] = parse_price(params[:price]).last
           @properties[:page] = (params[:page].to_i <= 0) ? 1 : params[:page].to_i
+          @properties[:name_begins_with] = params[:name_begins_with]
         end
 
         def scope_products_by_price(products)
