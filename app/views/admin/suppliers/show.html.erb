@@ -1,0 +1,41 @@
+<h1><%= t('activerecord.models.supplier.one') %></h1>
+
+<table>
+  <tr data-hook="name">
+    <th style='width:170px'><%= Supplier.human_attribute_name(:name) %></th>
+    <td>
+      <%= @supplier.name %>
+    </td>
+  </tr>
+  <tr data-hook="juridical_name">
+    <th><%= Supplier.human_attribute_name(:juridical_name) %></th>
+    <td>
+      <%= @supplier.juridical_name %>
+    </td>
+  </tr>
+  <tr data-hook="ownership_type">
+    <th><%= Supplier.human_attribute_name(:ownership_type) %></th>
+    <td>
+      <%= t("supplier_ownership_types.#{@supplier.ownership_type}") if @supplier.ownership_type.present? %>
+    </td>
+  </tr>
+  <% [:inn, :kpp, :ogrn, :juridical_address, :address, :phone, :representative_position, :representative_name, :account, :bank, :correspondent_account, :bik].each do |attribute| %>
+    <tr data-hook="<%= attribute %>">
+      <th><%= Supplier.human_attribute_name(attribute) %></th>
+      <td>
+        <%= @supplier.send(attribute) %>
+      </td>
+    </tr>
+  <% end %>
+  <tr data-hook="manager_contacts">
+    <th><%= Supplier.human_attribute_name(:manager_contacts) %></th>
+    <td>
+      <%= @supplier.manager_contacts.gsub("\n", '<br />').html_safe if @supplier.manager_contacts.present? %>
+    </td>
+  </tr>
+</table>
+
+<p>
+  <%= link_to_edit @supplier %> <%= t(:or) %>
+  <%= link_to t(:back), collection_url %>
+</p>

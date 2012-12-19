@@ -1,0 +1,14 @@
+<div data-hook="admin_supplier_edit_form_header">
+  <%= render 'shared/error_messages', :target => @supplier %>
+  <h1><%= t(:editing_supplier) %></h1>
+</div>
+
+<div data-hook="admin_supplier_edit_form">
+  <%= form_for [:admin, @supplier] do |f| %>
+    <%= render 'form', :f => f %>
+
+    <div data-hook="admin_supplier_edit_form_button">
+      <%= render 'admin/shared/edit_resource_links' %>
+    </div>
+  <% end %>
+</div>

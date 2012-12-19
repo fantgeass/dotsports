@@ -1,2 +1,35 @@
 ru:
+  activerecord: 
+    models: 
+      supplier:
+        one: Поставщик
+        other: Поставщики
+    attributes: 
+      supplier:
+        name: Наименование 
+        juridical_name: Наименование юридического лица
+        ownership_type: Форма собственности
+        inn: ИНН
+        kpp: КПП
+        ogrn: ОГРН
+        juridical_address: Юридический адрес
+        address: Фактический адрес
+        phone: Телефон
+        representative_position: Должность представителя 
+        representative_name: ФИО представителя
+        account: Расчетный счет
+        bank: Банк
+        correspondent_account: Корреспондентский счет
+        bik: БИК
+        manager_contacts: Контакты менеджеров
+
   product_default_meta_description: "Купить %{product} в интернет магазине профессиональных спортивных товаров DotSports. %{taxon}, бесплатная доставка по всей России."
+
+  suppliers: Поставщики
+  listing_suppliers: Список поставщиков
+  new_supplier: Новый поставщик
+  editing_supplier: Редактирование поставщика
+
+  supplier_ownership_types:
+    juridical: Юридическая
+    ie: ИП
