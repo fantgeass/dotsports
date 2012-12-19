@@ -21,4 +21,5 @@ Product.class_eval do
   def self.with_rating(rating)
     self.where(:avg_rating => rating)
   end
+
 end

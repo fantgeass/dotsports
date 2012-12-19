@@ -2,26 +2,15 @@
   <% params[:search] ||= {} %>
   <%= hidden_field_tag 'per_page', params[:per_page] %>
   <% filters = @taxon ? @taxon.applicable_filters : [ProductFilters.all_taxons] %>
-  <% filters.each do |filter| %>
-    <% labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]} %>
-    <% next if labels.empty? %>
-    <div class="navigation" data-hook="navigation">
-      <span class="category"> <%= filter[:name] %> </span>
-      <ul style="list-style-type:none; padding-left:0px;" class="filter_choices">
-        <% labels.each do |nm,val| %>
-          <% label = "#{filter[:name]}_#{nm}".gsub(/\s+/,'_') %>
-          <li class="nowrap">
-            <input type="checkbox"
-                   id="<%= label %>"
-                   name="taxon"
-                   value="<%= val %>"
-                   <%= params[:search][filter[:scope]] && params[:taxon].include?(val.to_s) ? "checked" : "" %> />
-            <label class="nowrap" for="<%= label %>"> <%= nm %> </label>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+
+  <% Taxonomy.sortable_taxonomies.each do |taxonomy| %>
+    <b><%= taxonomy.name %>:</b> <br />
+    <% taxons = Taxon.for_filter(taxonomy.id) %>
+    <% taxons.each do |taxon| %>
+      <%= check_box_tag "taxons[]", taxon.id %> <%= taxon.name %> <br />
+    <% end %>
   <% end %>
+
 
   <%= label_tag t(:rating) %>
   <%= select_tag :rating, rating_options %>
