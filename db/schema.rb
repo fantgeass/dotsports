@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219073034) do
+ActiveRecord::Schema.define(:version => 20121219133532) do
 
   create_table "activators", :force => true do |t|
     t.string   "description"
@@ -373,6 +373,7 @@ ActiveRecord::Schema.define(:version => 20121219073034) do
     t.boolean  "export_to_yandex_market",                               :default => true, :null => false
     t.decimal  "avg_rating",              :precision => 7, :scale => 5, :default => 0.0,  :null => false
     t.integer  "reviews_count",                                         :default => 0,    :null => false
+    t.integer  "supplier_id"
   end
 
   add_index "products", ["available_on"], :name => "index_products_on_available_on"

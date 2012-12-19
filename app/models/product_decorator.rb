@@ -3,6 +3,8 @@ Product.class_eval do
   accepts_nested_attributes_for :product_extension, :allow_destroy => true
   delegate_belongs_to :product_extension, :old_price, :embedded_video
 
+  belongs_to :supplier
+
   def meta_description
     attributes['meta_description'].presence || default_meta_description
   end

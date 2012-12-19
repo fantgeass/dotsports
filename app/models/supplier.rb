@@ -1,5 +1,7 @@
 class Supplier < ActiveRecord::Base
 
+  has_many :products
+  
   OWNERSHIP_TYPES = ['juridical', 'ie']
   
   validates :name, :presence => true

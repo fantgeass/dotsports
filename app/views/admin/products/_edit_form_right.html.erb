@@ -17,6 +17,11 @@
     <%= f.error_message_on :old_price %>
   <% end %>
 
+  <%= f.field_container :supplier_id do %>
+    <%= f.label :supplier_id, t('activerecord.models.supplier.one') %><br />
+    <%= f.collection_select :supplier_id, Supplier.order(:name), :id, :name, {:include_blank => true} %>
+  <% end %>
+
   <%= f.field_container :available_on do %>
     <%= f.label :available_on, t(:available_on) %><br />
     <%= f.error_message_on :available_on %>

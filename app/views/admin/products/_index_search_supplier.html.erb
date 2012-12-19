@@ -1,0 +1,4 @@
+<p>
+  <%= f.label :supplier_id_equals, t('activerecord.models.supplier.one') %><br />
+  <%= f.collection_select :supplier_id_equals, Supplier.order(:name), :id, :name, {:include_blank => true} %>
+</p>
