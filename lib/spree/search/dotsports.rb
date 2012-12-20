@@ -16,23 +16,17 @@ module Spree
 
         @products = @products.filter_by_brand_ids(@properties[:brands]) if @properties[:brands]
 
-        # if @properties[:taxons]
-        #   pr = []
-        #   @properties[:taxons].each do |taxon|
-        #     pr += @products.in_taxon(Taxon.find(taxon))
-        #   end
-        #   @products = pr.uniq
-        # end
+        @products = @products.filter_by_difficulty_ids(@properties[:difficulties]) if @properties[:difficulties]
 
         @products
       end
 
       def brands
-        Taxonomy.brand.taxons if Taxonomy.brand
+        Taxonomy.brand.taxons.where("parent_id IS NOT NULL") if Taxonomy.brand
       end
 
       def difficulties
-        Taxonomy.difficulty.taxons if Taxonomy.difficulty
+        Taxonomy.difficulty.taxons.where("parent_id IS NOT NULL") if Taxonomy.difficulty
       end
 
 
