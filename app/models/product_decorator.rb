@@ -18,8 +18,23 @@ Product.class_eval do
     attr_name == :meta_description ? meta_description : super
   end
 
-  def self.with_rating(rating)
-    self.where(:avg_rating => rating)
+  class << self
+    def with_rating(rating)
+      self.where(:avg_rating => rating)
+    end
+
+    def filter_by_brand_ids(brand_ids)
+      joins('INNER JOIN products_taxons AS products_brands ON products_brands.product_id = products.id').
+      joins('INNER JOIN taxons as brands ON products_brands.taxon_id = brands.id').
+      where(:brands => {:id => brand_ids, :taxonomy_id => Taxonomy.brand}) 
+    end
+
+    def filter_by_difficulty_ids(difficulty_ids)
+      joins('INNER JOIN products_taxons AS products_difficulties ON products_difficulties.product_id = products.id').
+      joins('INNER JOIN taxons as difficulties ON products_difficulties.taxon_id = difficulties.id').
+      where(:difficulties => {:id => difficulty_ids, :taxonomy_id => Taxonomy.difficulty}) 
+    end
+
   end
 
 end

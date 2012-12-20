@@ -14,15 +14,25 @@ module Spree
 
         @products = @products.where('products.name like ?', "#{@properties[:name_begins_with]}%") if @properties[:name_begins_with]
 
-        if @properties[:taxons]
-          pr = []
-          @properties[:taxons].each do |taxon|
-            pr += @products.in_taxon(Taxon.find(taxon))
-          end
-          @products = pr.uniq
-        end
+        @products = @products.filter_by_brand_ids(@properties[:brands]) if @properties[:brands]
+
+        # if @properties[:taxons]
+        #   pr = []
+        #   @properties[:taxons].each do |taxon|
+        #     pr += @products.in_taxon(Taxon.find(taxon))
+        #   end
+        #   @products = pr.uniq
+        # end
 
         @products
+      end
+
+      def brands
+        Taxonomy.brand.taxons if Taxonomy.brand
+      end
+
+      def difficulties
+        Taxonomy.difficulty.taxons if Taxonomy.difficulty
       end
 
 
@@ -36,7 +46,8 @@ module Spree
           @properties[:search] = params[:search]
           @properties[:taxon] = params[:taxon].blank? ? nil : Taxon.find(params[:taxon])
           @properties[:rating] = params[:rating]
-          @properties[:taxons] = params[:taxons].blank? ? nil : params[:taxons]
+          @properties[:brands] = params[:brands].blank? ? nil : params[:brands]
+          @properties[:difficulties] = params[:difficulties].blank? ? nil : params[:difficulties]
           @properties[:price_min], @properties[:price_max] = parse_price(params[:price]).first
           @properties[:price_max] = parse_price(params[:price]).last
           @properties[:page] = (params[:page].to_i <= 0) ? 1 : params[:page].to_i
